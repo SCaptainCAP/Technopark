@@ -1,10 +1,7 @@
 #include <iostream>
 #include <assert.h>
-#define DEFAULT_SIZE 4
-
-/*
- * ​Реализовать дек с динамическим зацикленным буфером.
- */
+#include <cmath>
+#define DEFAULT_SIZE 10
 
 template <class T>
 class Deque {
@@ -19,10 +16,8 @@ public:
     T PopFront();
     bool IsEmpty() const;
 
-    void print(bool debug = false) const;
-
 private:
-    T* buffer = NULL;
+    T* buffer;
     int bufferSize;
     int minBufferSize;
     int head;
@@ -32,16 +27,15 @@ private:
     void DecreaseBuffer();
 };
 
+
 template <typename T>
-Deque<T>::Deque(int size) : bufferSize(size), minBufferSize(size), head(-1), tail(0), empty(true)
+Deque<T>::Deque(int size) : bufferSize(size), minBufferSize(size), head(0), tail(size - 1), empty(true)
 {
-    assert(size > 1);
     buffer = new T[bufferSize];
 }
 
 template <typename T>
-Deque<T>::Deque() : bufferSize(DEFAULT_SIZE), minBufferSize(DEFAULT_SIZE), head(-1
-), tail(0), empty(true)
+Deque<T>::Deque() : bufferSize(DEFAULT_SIZE), minBufferSize(DEFAULT_SIZE), head(0), tail(DEFAULT_SIZE - 1), empty(true)
 {
     buffer = new T[bufferSize];
 }
@@ -49,7 +43,10 @@ Deque<T>::Deque() : bufferSize(DEFAULT_SIZE), minBufferSize(DEFAULT_SIZE), head(
 template <typename T>
 Deque<T>::~Deque()
 {
-    delete[](buffer);
+    while (!IsEmpty() )
+    {
+        PopFront();
+    }
 }
 
 template <typename T>
@@ -60,81 +57,60 @@ void Deque<T>::IncreaseBuffer() {
     tmpBuffer[0] = buffer[head];
     for (int i = bufferSize + 1; i < bufferSize * 2; i++)
     {
-        tmpBuffer[i] = buffer[(tail + i - 1 - bufferSize) % bufferSize];
+        tmpBuffer[i] = buffer[(tail + i) % bufferSize];
     }
+
     head = 0;
     tail = bufferSize + 1;
-    bufferSize *= 2;
 
-    delete [](buffer);
     buffer = tmpBuffer;
+    delete(tmpBuffer);
+    bufferSize *= 2;
 }
 
 template <typename T>
 void Deque<T>::DecreaseBuffer() {
     T* tmpBuffer = new T[(bufferSize / 2)];
     assert(tmpBuffer);
-    assert(bufferSize >= minBufferSize);
 
     tmpBuffer[0] = buffer[head];
-    for (int i = 1; i < bufferSize / 2; i++)
+    for (int i = bufferSize + 1; i < bufferSize * 2; i++)
     {
-        tmpBuffer[i] = buffer[(tail + i - 1) % bufferSize];
+        tmpBuffer[i] = buffer[(tail + i) % bufferSize];
     }
 
     head = 0;
-    tail = 1;
-    bufferSize /= 2;
+    tail = bufferSize + 1;
 
-    delete [](buffer);
     buffer = tmpBuffer;
+    delete(tmpBuffer);
+    bufferSize *= 2;
 }
 
 template <typename T>
 void Deque<T>::PushFront(T data)
 {
-    if (IsEmpty()) {
-        buffer[0] = data;
-        head = 0;
-        tail = 0;
-        empty = false;
+    empty = false;
+    head = (head + 1) % bufferSize;
+    if (head == tail && bufferSize > minBufferSize) {
+        IncreaseBuffer();
+        head++;
     }
-    else
-    {
-        head = (head + 1) % bufferSize;
-        if (head == tail) {
-            head--;
-            if (head < 0)
-                head = bufferSize - 1;
-            IncreaseBuffer();
-            head++;
-        }
-        buffer[head] = data;
-    }
+    buffer[head] = data;
 }
 
 
 template <typename T>
 void Deque<T>::PushBack(T data) {
-    if (IsEmpty()) {
-        buffer[bufferSize - 1] = data;
+    empty = false;
+    tail = (tail - 1);
+    if (tail < 0)
         tail = bufferSize - 1;
-        head = bufferSize - 1;
-        empty = false;
+    if (head == tail && bufferSize > minBufferSize) {
+        IncreaseBuffer();
+        tail--;
     }
-    else
-    {
-        tail = (tail - 1);
-        if (tail < 0)
-            tail = bufferSize - 1;
-        if (head == tail) {
-            tail = (tail + 1) % bufferSize;
-            IncreaseBuffer();
-            tail--;
-        }
-        buffer[tail] = data;
-    }
-
+    buffer[tail] = data;
 }
 
 
@@ -146,8 +122,7 @@ T Deque<T>::PopPack() {
         empty = true;
     T data = buffer[tail];
     tail = (tail + 1) % bufferSize;
-    int rasst = (tail > head) ? head + bufferSize - tail : head - tail;
-    if (rasst < bufferSize / 2  && bufferSize > minBufferSize)
+    if (std::abs(tail - head) + 1 < bufferSize / 2)
     {
         DecreaseBuffer();
     }
@@ -165,9 +140,7 @@ T Deque<T>::PopFront() {
     head = (head - 1);
     if (head < 0)
         head = bufferSize - 1;
-
-    int rasst = (tail > head) ? head + bufferSize - tail : head - tail;
-    if (rasst < bufferSize / 2  && bufferSize > minBufferSize)
+    if (std::abs(tail - head) + 1 < bufferSize / 2)
     {
         DecreaseBuffer();
     }
@@ -181,21 +154,10 @@ bool Deque<T>::IsEmpty() const
     return empty;
 }
 
-template <typename T>
-void Deque<T>::print(bool debug) const {
-    if (debug)
-        std::cout << "Head: " << head << "; Tail: " << tail << std::endl;
-    std::cout << "|";
-    for (int i = 0; i < bufferSize; i++)
-    {
-        std::cout << " " << buffer[i] << " |";
-    }
-}
-
 
 int main() {
     int n, command, definition;
-    bool nice = true;
+    int nice = 1;
     std::cin >> n;
     Deque<int> deque;
     for (int i = 0; i < n; i++)
@@ -212,7 +174,7 @@ int main() {
             case 2: // pop front
             {
                 if (deque.PopFront() != definition)
-                    nice = false;
+                    nice = 0;
                 break;
             }
             case 3: // push back
@@ -223,12 +185,11 @@ int main() {
             case 4: // pop back
             {
                 if (deque.PopPack() != definition)
-                    nice = false;
+                    nice = 0;
                 break;
             }
         }
-        //deque.print(true);
-        //std::cout << std::endl;
+
     }
     if (nice)
         std::cout << "YES";

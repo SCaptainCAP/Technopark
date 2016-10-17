@@ -1,0 +1,35 @@
+body {
+  padding-top: 50px;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+#navbar-search {
+    float: left;
+}
+
+#navbar-search-input {
+    border-radius: 10px;
+}
+
+.ask-profile_top {
+    display: inline-block;
+    float: right;
+}
+
+.ask-profile_image {
+    height: 50px;
+}
+
+.ask-profile_menu {
+    float: right;
+}
+
+#text-logo {
+    font-size: 32px;
+}
+
+.my-navbar {}

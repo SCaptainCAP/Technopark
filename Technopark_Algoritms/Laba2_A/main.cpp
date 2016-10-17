@@ -41,26 +41,27 @@ void check(int* A, int* B, int size, int* i0, int* j0)
     assert(B);
     assert(j0);
     assert(i0);
-
-    int max = A[0] + B[0];
-    int maxA = A[0];
+    int k = 0;
+    int m = 0;
+    int tmp = 0;
+    int bpos = 0;
     *i0 = 0;
     *j0 = 0;
-    int ind_tmp_B;
+    int max = A[0] + B[0];
 
-    for (int i = 0; i < size; i++)
+    while (bpos < size)
     {
-        if (A[i] > maxA || i == 0)
+        k = find_max(B + bpos, size - bpos) + bpos;
+        tmp = find_max(A + m, k + 1 - m) + m;
+        if (A[tmp] > A[m])
+            m = tmp;
+        if ((B[k] + A[m]) > max)
         {
-            ind_tmp_B = find_max(B + i, size - i);
-            if (A[i] + B[ind_tmp_B + i] > max)
-            {
-                *i0 = i;
-                *j0 = ind_tmp_B + i;
-                maxA = A[i];
-                max = maxA + B[ind_tmp_B + i];
-            }
+            *i0 = m;
+            *j0 = k;
+            max = (B[k] + A[m]);
         }
+        bpos = k + 1;
     }
 }
 
@@ -87,3 +88,26 @@ int main() {
 
     return 0;
 }
+
+
+
+//    int max = A[0] + B[0];
+//    int maxA = A[0];
+//    *i0 = 0;
+//    *j0 = 0;
+//    int ind_tmp_B;
+//
+//    for (int i = 0; i < size; i++)
+//    {
+//        if (A[i] > maxA || i == 0)
+//        {
+//            ind_tmp_B = find_max(B + i, size - i);
+//            if (A[i] + B[ind_tmp_B + i] > max)
+//            {
+//                *i0 = i;
+//                *j0 = ind_tmp_B + i;
+//                maxA = A[i];
+//                max = maxA + B[ind_tmp_B + i];
+//            }
+//        }
+//    }
