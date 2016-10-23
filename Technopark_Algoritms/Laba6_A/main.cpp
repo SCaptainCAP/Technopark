@@ -40,7 +40,7 @@ long int calculate_layer(int to_add, int level, long int **buffer, int depth)
     return ans;
 }
 
-long int find(int n)
+long int make_laba(int n)
 {
     long int ans = 0;
     long int **buffer = new long int*[n + 1];
@@ -64,6 +64,6 @@ int main()
     int n = 0;
     std::cin >> n;
 
-    std::cout << find(n);
+    std::cout << make_laba(n);
     return 0;
 }

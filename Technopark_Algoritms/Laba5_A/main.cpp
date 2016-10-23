@@ -21,6 +21,7 @@
 1 + 2     =     3
 */
 #define DEFAULT_SIZE 4
+#define STRING_SIZE 500
 
 template <class T>
 class Deque {
@@ -290,7 +291,7 @@ void read_infix_make_postfix(char* str_infix, char* str_postfix)
             continue;
         }
         prior = priority(char_tmp);
-        if (priority(operations.GetFront()) >= prior) {
+        while (priority(operations.GetFront()) >= prior) {
             str_postfix[str_postfix_pointer++] = operations.PopFront();
         }
         operations.PushFront(char_tmp);
@@ -356,21 +357,30 @@ int calculate_postfix(char* str)
     return deque.PopFront();
 }
 
+void read_line(char *str)
+{
+    for (int i = 0; i < STRING_SIZE; i++)
+        str[i] = '\0';
+
+    std::cin.getline(str, STRING_SIZE);
+}
+
+void prepare_line(char *str)
+{
+    for (int i = 0; i < STRING_SIZE; i++)
+        str[i] = '\0';
+}
 
 int main()
 {
-    //char* str_input = (char*) calloc(500, sizeof(char));
-    char* str_input = new char[500];
+    //char* str_input = (char*) calloc(STRING_SIZE, sizeof(char));
+    char* str_input = new char[STRING_SIZE];
     assert(str_input);
-    for (int i = 0; i < 500; i++)
-        str_input[i] = '\0';
+    read_line(str_input);
 
-    std::cin.getline(str_input, 500);
-
-    char* str_postfix = new char[500];
+    char* str_postfix = new char[STRING_SIZE];
     assert(str_postfix);
-    for (int i = 0; i < 500; i++)
-        str_postfix[i] = '\0';
+    prepare_line(str_postfix);
 
     read_infix_make_postfix(str_input, str_postfix);
 
