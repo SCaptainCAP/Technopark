@@ -1,0 +1,34 @@
+1) Создание директории проекта ask_govjazin
+Директория создана командой
+djang-admin startproject ask_govjazin
+Остальные директории созданы вручную
+
+2) Настройка gunicorn для запуска wsgi
+Создан файл gunicorn.conf.py
+wsgi скрипты запускаются командой
+sudo gunicorn wsgi -c gunicorn.conf.py
+
+3) Создание простой wsgi скрипт
+Написан скрипт helloworld.py
+Запускается командой
+sudo gunicorn helloworld -c gunicorn.conf.py
+
+4) Реализовать пункт 3 с помощью django
+Создаем новое приложение командой 
+python manage.py startapp ask
+Там создаем новое view в файле views.py (hello)
+В файле urls.py добавляем нашу view добавлением туда
+url(r'^$', views.hello, name = 'hello'),
+
+Запускаем наш django
+sudo gunicorn ask_govjazin.wsgi -c gunicorn.conf.py
+
+Проверям реботу http://askgovjazin.io/
+
+5) Настройка nginx для отдачи статического контента
+См. конфиг
+
+6) Настройка проксирования в nginx
+См. конфиг
+
+7) 
