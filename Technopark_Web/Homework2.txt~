@@ -31,4 +31,5 @@ sudo gunicorn ask_govjazin.wsgi -c gunicorn.conf.py
 6) Настройка проксирования в nginx
 См. конфиг
 
-7) 
+7) Сравнение производительности nginx и wsgi (django)
+

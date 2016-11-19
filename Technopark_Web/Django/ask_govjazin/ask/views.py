@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
 
 @cache_page(600 * 15)
-def hello(request):
+def basewsgi(request):
 	gett = ''
 	for key, value in request.GET.iteritems():
 		gett = key + '=' + value + '<br>'+gett
@@ -14,3 +14,9 @@ def hello(request):
 		postt= key+ '='+ request.POST[key]+'<br>'+postt
 	a = 'Request method: ' + request.method + '<br />GET params:<br> ' + gett + '<br /> POST params: ' + '<br />' + postt + '\n'
 	return HttpResponse(a)
+	
+def index(request):
+	return render(request, 'index.html')
+	
+#def index(request):
+#	return render(request, 'index.html')

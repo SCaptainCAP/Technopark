@@ -23,7 +23,7 @@ url(r'^$', views.hello, name = 'hello'),
 Запускаем наш django
 sudo gunicorn ask_govjazin.wsgi -c gunicorn.conf.py
 
-Проверям реботу http://askgovjazin.io/
+Проверям реботу http://askgovjazin.io/basewsgi/
 
 5) Настройка nginx для отдачи статического контента
 См. конфиг
