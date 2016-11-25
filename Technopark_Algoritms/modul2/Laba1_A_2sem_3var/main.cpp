@@ -1,59 +1,22 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-
-/*
-struct mathVector {
-    Point p1;
-    Point p2;
-
-    mathVector(Point point1, Point point2) : p1(point1), p2(point2) {}
-};
-*/
-
+#include <cmath>
 
 struct Point {
     int X;
     int Y;
-
+    double angle;
     Point(int x, int y) : X(x), Y(y){}
 };
 
-double angleVector(int x1, int y1, int x2, int y2)
-{
-    double t = (x1*x2+y1*y2)/(sqrt((double)x1*x1+y1*y1)*sqrt((double)x2*x2+y2*y2));
-    if     (t<-1) t=-1;
-    else if(t> 1) t= 1;
-    return acos(t);
-}
-
 bool isLessAngle (const Point& l, const Point& r)
 {
-    double angleL = angleVector(0, 1, l.X, l.Y) * 180 / 3.1415;
-    double angleR = angleVector(0, 1, r.X, r.Y) * 180 / 3.1415;
-/*    if (first.X == l.X) {
-        if (first.Y < l.Y)
-            angleL = 270;
-        else
-            angleL = 90;
-    }
-    else {
-        angleL = atan((first.Y - l.Y) / (first.X - l.X)) * 180 / 3.14159;//y2-y1)/(x2-x1)
-    }
-    if (first.X == r.X) {
-        if (first.Y < r.Y)
-            angleL = 270;
-        else
-            angleL = 90;
-    }
-    else {
-        angleR = atan((first.Y - r.Y) / (first.X - r.X)) * 180 / 3.14159;//y2-y1)/(x2-x1)
-    }*/
-    return angleL < angleR;
+
+    return l.angle > r.angle;
 }
 
 template <class T>
-void mySort(T* arr, int l, unsigned long r, bool (* isLess)(const T&, const T&)){
+void insertionSort(T* arr, int l, unsigned long r, bool (* isLess)(const T&, const T&)){
     for (int i = l; i < r; i++)
     {
         T tmp = arr[i];
@@ -86,6 +49,16 @@ void setCurveStart(std::vector<Point> &vect) {
     std::swap(vect[0],vect[min_index]);
 }
 
+void fillCurveAngles(std::vector<Point> &vect) {
+    for (int i = 1; i < vect.size(); i++) {
+        if(vect[i].X == vect[0].X)
+            vect[i].angle = 1.67;
+
+        else
+            vect[i].angle = atan2(vect[i].Y - vect[0].Y, vect[i].X - vect[0].X);
+    }
+}
+
 
 int main() {
     std::vector<Point> points;
@@ -101,8 +74,9 @@ int main() {
     }
 
     setCurveStart(points);
+    fillCurveAngles(points);
 
-    mySort(points.data(), 1, points.size(), isLessAngle);
+    insertionSort(points.data(), 1, points.size(), isLessAngle);
 
 
     for (int i = 0; i < points.size(); i++)
@@ -110,4 +84,5 @@ int main() {
         std::cout << points[i].X << " " << points[i].Y << std::endl;
     }
     return 0;
+
 }
