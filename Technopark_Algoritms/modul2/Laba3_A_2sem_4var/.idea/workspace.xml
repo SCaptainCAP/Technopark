@@ -4,6 +4,7 @@
     <generated>
       <config projectName="Node_Queue" targetName="Node_Queue" />
       <config projectName="Laba1" targetName="Laba1" />
+      <config projectName="Laba3_A_2sem_4var" targetName="Laba3_A_2sem_4var" />
       <config projectName="Laba2_A_2sem_3var" targetName="Laba2_A_2sem_3var" />
       <config projectName="Laba1_A_2sem_3var" targetName="Laba1_A_2sem_3var" />
     </generated>
@@ -37,8 +38,12 @@
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="611">
-              <caret line="105" column="1" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
-              <folding />
+              <caret line="87" column="1" selection-start-line="87" selection-start-column="1" selection-end-line="87" selection-end-column="1" />
+              <folding>
+                <element signature="e#181#190#0" expanded="true" />
+                <element signature="e#479#488#0" expanded="true" />
+                <element signature="e#936#945#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,7 +109,7 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Laba2_A_2sem_3var" />
+              <option name="myItemId" value="Laba3_A_2sem_4var" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -114,7 +119,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Laba3_A_2sem_4var" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Laba6_A_2sem_2var" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -295,15 +300,20 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Node_Queue" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Laba2_A_2sem_3var" TARGET_NAME="Laba2_A_2sem_3var" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Laba2_A_2sem_3var" RUN_TARGET_NAME="Laba2_A_2sem_3var">
+    <configuration default="false" name="Laba3_A_2sem_4var" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Laba3_A_2sem_4var" TARGET_NAME="Laba3_A_2sem_4var" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Laba3_A_2sem_4var" RUN_TARGET_NAME="Laba3_A_2sem_4var">
       <envs />
       <method />
     </configuration>
-    <list size="4">
+    <configuration default="false" name="Node_Queue" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Laba3_A_2sem_4var" TARGET_NAME="Laba3_A_2sem_4var" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Laba3_A_2sem_4var" RUN_TARGET_NAME="Laba3_A_2sem_4var">
+      <envs />
+      <method />
+    </configuration>
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="1" class="java.lang.String" itemvalue="Application.Laba1_A_2sem_3var" />
       <item index="2" class="java.lang.String" itemvalue="Application.Laba2_A_2sem_3var" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Node_Queue" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Laba3_A_2sem_4var" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Node_Queue" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -326,14 +336,14 @@
       <workItem from="1479728196443" duration="1169000" />
       <workItem from="1479745982027" duration="626000" />
       <workItem from="1480063726419" duration="8783000" />
-      <workItem from="1480080932717" duration="19345000" />
-      <workItem from="1480149272996" duration="31000" />
-      <workItem from="1480149449803" duration="36000" />
+      <workItem from="1480080932717" duration="19243000" />
+      <workItem from="1480112628176" duration="3351000" />
+      <workItem from="1480149486938" duration="211000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53101000" />
+    <option name="totallyTimeSpent" value="56494000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -381,7 +391,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -397,7 +411,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -413,7 +431,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -421,7 +443,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -429,7 +455,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="825">
           <caret line="55" column="18" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -451,7 +481,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -466,7 +500,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="960">
           <caret line="64" column="10" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -488,7 +526,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -503,7 +545,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -518,7 +564,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -554,8 +604,12 @@
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="611">
-          <caret line="105" column="1" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
-          <folding />
+          <caret line="87" column="1" selection-start-line="87" selection-start-column="1" selection-end-line="87" selection-end-column="1" />
+          <folding>
+            <element signature="e#181#190#0" expanded="true" />
+            <element signature="e#479#488#0" expanded="true" />
+            <element signature="e#936#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

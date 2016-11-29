@@ -52,8 +52,7 @@ void setCurveStart(std::vector<Point> &vect) {
 void fillCurveAngles(std::vector<Point> &vect) {
     for (int i = 1; i < vect.size(); i++) {
         if(vect[i].X == vect[0].X)
-            vect[i].angle = 1.67;
-
+            vect[i].angle = 3.1415 / 2;
         else
             vect[i].angle = atan2(vect[i].Y - vect[0].Y, vect[i].X - vect[0].X);
     }
