@@ -316,7 +316,7 @@ int calculate_postfix(char* str)
     int a = 0;
     int b = 0;
     char *str_number;
-
+    deque.PushFront(0);
     while (true)
     {
         char_tmp = str[str_pointer++];

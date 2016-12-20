@@ -1,0 +1,76 @@
+ {% extends "base/index.html" %}
+{% block content %}
+         <h2> Регистрация </h2>
+
+            <form class="form-horizontal" >
+              
+              <div class="form-group">
+                <div class="col-md-8">
+                  <div class=" alert alert-danger" role="alert">Ошибка регистриации</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputLogin" class="col-md-2 control-label" style="text-align:left;">Login</label>
+                <div class="col-md-6">
+                  <input type="Login" class="form-control" id="inputLogin" placeholder="Login">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputEmail" class="col-md-2 control-label"  style="text-align:left;">Email</label>
+                <div class="col-md-6">
+                  <input type="Email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputNickName" class="col-md-2 control-label"  style="text-align:left;">NickName</label>
+                <div class="col-md-6">
+                  <input type="NickName" class="form-control" id="inputNickName" placeholder="Nickname">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputPassword" class="col-md-2 control-label"  style="text-align:left;">Пароль</label>
+                <div class="col-md-6">
+                  <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputRepeatPassword" class="col-md-2 control-label"  style="text-align:left;">Повторите пароль</label>
+                <div class="col-md-6">
+                  <input type="password" class="form-control" id="inputRepeatPassword" placeholder="Repeat password">
+                </div>
+              </div>
+
+              <div class="form-group">
+                
+                <label for="inputUpload" class="col-md-2 control-label"  style="text-align:left;">Upload avatar</label>
+
+                <div class="col-md-6"> 
+                      <p style="display:inline"><input id="uploadFile" type="text" disabled="disabled" placeholder="Choose File"/>
+
+                        <div class="file-upload btn btn-primary">
+                          <span>Upload</span>  
+                          <input class="upload" id="uploadBtn" type="file" />
+                        </div>  
+
+                        <script type="text/javascript">  
+                          document.getElementById("uploadBtn").onchange = function (){  
+                              document.getElementById("uploadFile").value = this.value;
+                          };
+                        </script>                     
+                  </div>
+                </div>
+              
+          
+              
+              <div class="col-md-2"></div>
+              <div class="col-md-3">
+                
+              <button type="Register" class="btn btn-default " style=" margin-left: -7px;" >Зарегистрироваться</button>
+              </div>
+            </form>
+{% endblock %}
