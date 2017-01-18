@@ -1,40 +1,73 @@
-{% extends "base/index.html" %}
+{% extends "base/main.html" %}
 {% block content %}
-<h2 class="">Tag: sample tag</h2> 
-          <ul class="list-group" type="none">
-            <!-- Start Question-->
-              {% for i in questions %}
-            <li>
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <div class="col-md-2">                      
-                    <img src="/static/img/1.jpg"  class="img-rounded" style="width: 100px; height: 100px;" >
-                                                       
-                      <h2 class="question_rate">{{i.id}}<button class="btn btn-success rounded_btn question_rate_btn" type="submit">↑</button>
-                      <button class="btn btn-danger rounded_btn question_rate_btn" type="submit">↓</button></h2>
-                      
-                  </div>
-                  <div class="col-md-10">
-                    <h4> <a href="question.html">{{i.title}}</a> </h4>
+<h2 class="">Tag: {{tag}}</h2>
+<ul class="list-group" type="none">
+    <!-- Start Question-->
+    {% for i in questions %}
+    <li>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-2">
+                    <img src="/static/img/1.jpg" class="img-rounded" style="width: 100px; height: 100px;">
+
+                    <h2 class="question_rate">{{i.rating}}
+                        <button class="btn btn-success rounded_btn question_rate_btn" type="submit">↑</button>
+                        <button class="btn btn-danger rounded_btn question_rate_btn" type="submit">↓</button>
+                    </h2>
+
+                </div>
+                <div class="col-md-10">
+                    <h4><a href="{% url 'question' i.id%}">{{i.title}}</a></h4>
                     <p>{{i.text}}</p>
                     <div class="question_answers_and_tegs_block">
-                      <div class="col-md-6">
-                          <a href="question.html">Answers <span class="badge">10</span> </a>
-                      </div>
-                      <div class="col-md-6 tags">
-                        Tags: 
-                        <a href="bytag.html"> Tag</a>
-                        <a href="bytag.html"> Sample</a>
-                        <a href="bytag.html"> Nice</a>
-                        <a href="bytag.html"> Question</a>
-                        <a href="bytag.html"> C</a>
-                        <a href="bytag.html"> Progi</a>
-                      </div>
+                        <div class="col-md-6">
+                            <a href="question.html">Answers <span class="badge">10</span> </a>
+                        </div>
+                        <div class="col-md-6 tags">
+                            {% for j in i.tags.all %}
+                            <a href="{% url 'tag' j.data %}"> {{j.data}}</a>
+                            {% endfor %}
+                        </div>
                     </div>
-                  </div> 
-                </div> 
-              </div> 
-            </li>
-              {% endfor %}
-              {% include "base/paginator.html" %}
-    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+{% endfor %}
+<nav aria-label="question navigation">
+    <ul class="pagination am-pagination">
+        <li>
+            {% if question.number == 1 %}
+            <a href="{{ paginator.baseurl }}{{ question.number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            {% else %}
+            <a href="{{ paginator.baseurl }}{{ question.previous_question_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            {% endif %}
+        </li>
+        {% for p in paginator.question_range %}
+        {% if p == question.number %}
+        <li class="active">
+            {% else %}
+        <li>
+            {% endif %}
+            < a href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+        <li>
+            {% if question.number == paginator.num_questions %}
+            <a href="{{ paginator.baseurl }}{{ paginator.num_questions }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            {% else %}
+            <a href="{{ paginator.baseurl }}{{ question.next_question_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            {% endif %}
+        </li>
+    </ul>
+</nav>
+{% endblock %}

@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar_sitename navbar-brand" href="index.html">ASKME by Govjazin</a>
+        <a class="navbar_sitename navbar-brand" href="{% url 'index'%}">ASKME by Govjazin</a>
 
         <div class="navbar_search">
           <form class="navbar-form">
@@ -23,12 +23,12 @@
         </div>
       </div>
       <div class="navbar_right">
-       <img src="static/img/3.jpg" class="navbar_right_name navbar_pic"/>          
+       <img src="{{user.profile.avatar}}" class="navbar_right_name navbar_pic"/>
         <div class="navbar_right_name">                              
           <ul type="none" class="navbar_list">
-           <li id="navbar_user_name">{{username}}</li>
-           <li> <a  href="settings.html" class="nav_account_buttons">Settings</a>
-                <a  href="#" class="nav_account_buttons">Log out</a> </li>
+           <li id="navbar_user_name">{{user.username}}</li>
+           <!--<li> <a  href="settings.html" class="nav_account_buttons">Settings</a>-->
+                <a  href="{% url 'logout'%}" class="nav_account_buttons">Log out</a> </li>
           </ul>
         </div>              
       </div>

@@ -1,38 +1,50 @@
-{% extends "base/index.html" %}
+{% extends "base/main.html" %}
 {% block content %}
 
 <h2> Авторизация </h2>
 
-            <form class="form-horizontal" >
-              <div class="form-group">
-                <div class="col-md-8">
-                  <div class=" alert alert-danger" role="alert">Ошибка авторизации</div>
-                </div>
-              </div>
+<form method="POST" action="/login" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+        <div for="email">{{field.label}}</div>
+        {{field}}
+    </div>
+    {% endfor %}
 
-              <div class="form-group">
-                <label for="inputLogin" class="col-md-2 control-label" style="text-align:left;">Login</label>
-                <div class="col-md-6">
-                  <input type="Login" class="form-control" id="inputLogin" placeholder="Login">
-                </div>
-              </div>
+    <button type="submit" class="btn btn-default">Login</button>
+</form>
 
-              <div class="form-group ">
-                <label for="inputPassword" class="col-md-2 control-label"  style="text-align:left;">Password</label>
-                <div class="col-md-6" >
-                  <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                </div>
-              </div>            
-              
-              <div class="col-md-2"></div>
-              <div class="col-md-3" style=" margin-left: -9px;">
-                
-                <button type="Login" class="btn btn-default "  >Log in!</button>
-                <br>
-                <div class="create_new_account_link">
-                  <a href="register.html" >Create new account</a>
-                </div>
-              </div>
-            </form>
-                
+<!--<form class="form-horizontal">-->
+    <!--<div class="form-group">-->
+        <!--<div class="col-md-8">-->
+            <!--<div class=" alert alert-danger" role="alert">Ошибка авторизации</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+        <!--<label for="inputLogin" class="col-md-2 control-label" style="text-align:left;">Login</label>-->
+        <!--<div class="col-md-6">-->
+            <!--<input type="Login" class="form-control" id="inputLogin" placeholder="Login">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="form-group ">-->
+        <!--<label for="inputPassword" class="col-md-2 control-label" style="text-align:left;">Password</label>-->
+        <!--<div class="col-md-6">-->
+            <!--<input type="password" class="form-control" id="inputPassword" placeholder="Password">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-2"></div>-->
+    <!--<div class="col-md-3" style=" margin-left: -9px;">-->
+
+        <!--<button type="Login" class="btn btn-default ">Log in!</button>-->
+        <!--<br>-->
+        <!--<div class="create_new_account_link">-->
+            <!--<a href="register.html">Create new account</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->
+
 {% endblock %}

@@ -22,7 +22,7 @@
 
 <body>
 
-    {% if username %} 
+    {% if user.is_authenticated  %}
         {% include "base/bar_logged_in.html" %} 
     {% else %} 
         {% include "base/bar_not_logged_in.html" %} 

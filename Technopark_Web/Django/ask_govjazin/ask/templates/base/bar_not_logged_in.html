@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar_sitename navbar-brand" href="index.html">ASKME by Govjazin</a>
+        <a class="navbar_sitename navbar-brand" href="{% url 'index'%}">ASKME by Govjazin</a>
 
         <div class="navbar_search">
           <form class="navbar-form">
@@ -23,8 +23,8 @@
         </div>
       </div>
       <div class="navbar_not_logined">     
-        <a  href="login.html">Log in &nbsp;&nbsp;</a>
-        <a  href="register.html">Register </a>
+        <a  href="{% url 'login'%}">Log in &nbsp;&nbsp;</a>
+        <a  href="{% url 'signup'%}">Register </a>
       </div>
     </div>
    </div>

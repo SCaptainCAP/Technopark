@@ -1,25 +1,22 @@
 <!-- right column-->
-        <div class="col-md-3">
-         <!-- right column Popular tags-->
-         <h2> Popular tags</h2>
-           <div class="popular_tags">
-            <a href="bytag.html" class="popular_tags_important"> C++</a>
-            <a href="bytag.html" class="popular_tags_medium"> Python</a>
-            <a href="bytag.html" class="popular_tags_medium"> Pascal</a>
-            <a href="bytag.html" class="popular_tags_usual"> Php</a>
-            <a href="bytag.html"> C#</a>
-            <a href="bytag.html"> Perl</a>
-          </div>
-         <!--END right column Popular tags-->  
+<div class="col-md-3">
+    <!-- right column Popular tags-->
+    <h2> Popular tags</h2>
+    <div class="popular_tags">
+        {% for j in atags %}
+        <a href="{% url 'tag' j.data %}" class="popular_tags_medium"> {{j.data}}</a>
+        {% endfor %}
+    </div>
+    <!--END right column Popular tags-->
 
-         <!-- right column Best Members-->
-          <h2> Top users</h2>
-          <ul class="list-group best_members" type="none">
-            <li> <a href="#"> First top paren</a></li>
-            <li> <a href="#"> SECOND top paren</a></li>
-            <li> <a href="#"> First top girl</a></li>
-            <li> <a href="#"> Second top girl</a></li>
-          </ul>
-         <!--END right column Best Members-->        
-        </div>
-        <!--END right column-->
+    <!-- right column Best Members-->
+    <h2> Top users</h2>
+    <ul class="list-group best_members" type="none">
+        <li><a href="#"> First top paren</a></li>
+        <li><a href="#"> SECOND top paren</a></li>
+        <li><a href="#"> First top girl</a></li>
+        <li><a href="#"> Second top girl</a></li>
+    </ul>
+    <!--END right column Best Members-->
+</div>
+<!--END right column-->
