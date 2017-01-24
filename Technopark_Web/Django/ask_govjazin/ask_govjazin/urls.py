@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/?', admin.site.urls),
     url(r'^basewsgi/?', views.basewsgi, name='basewsgi'),
     url(r'^hot/?', views.hot, name='hot'),
+    url(r'^makequestion/?', views.makequestion, name='makequestion'),
     url(r'^login/?', views.login_to_system, name='login'),
     url(r'^signup/?', views.signup, name='signup'),
     url(r'^ask/?', views.ask, name='ask'),

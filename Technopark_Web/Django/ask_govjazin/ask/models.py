@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+from ask_govjazin.settings import BASE_DIR
+
 
 class ProfileManager(models.Manager):
     def by_user(self, u):
@@ -9,9 +11,10 @@ class ProfileManager(models.Manager):
 
 
 class Profile(models.Model):
-    avatar = models.ImageField(upload_to='/uploads/images/%Y-%m-%d',
-                               default='/static/img/no-avatar.png'
-                               )
+    avatar = models.ImageField(
+        upload_to='uploads',
+        default='static/img/no-avatar.png'
+    )
     rating = models.IntegerField(default=0)
     user = models.OneToOneField(
         User,

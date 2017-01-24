@@ -37,39 +37,25 @@
     </div>
 </ul>
 {% endfor %}
-<nav aria-label="question navigation">
-    <ul class="pagination am-pagination">
-        <li>
-            {% if question.number == 1 %}
-            <a href="{{ paginator.baseurl }}{{ question.number }}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-            {% else %}
-            <a href="{{ paginator.baseurl }}{{ question.previous_question_number }}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-            {% endif %}
-        </li>
-        {% for p in paginator.question_range %}
-        {% if p == question.number %}
-        <li class="active">
-            {% else %}
-        <li>
-            {% endif %}
-            < a href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a>
-        </li>
-        {% endfor %}
-        <li>
-            {% if question.number == paginator.num_questions %}
-            <a href="{{ paginator.baseurl }}{{ paginator.num_questions }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% else %}
-            <a href="{{ paginator.baseurl }}{{ question.next_question_number }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% endif %}
-        </li>
-    </ul>
-</nav>
+{% if questions.has_other_pages %}
+  <ul class="pagination">
+    {% if questions.has_previous %}
+      <li><a href="?page={{ questions.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in questions.paginator.page_range %}
+      {% if questions.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if questions.has_next %}
+      <li><a href="?page={{ questions.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 {% endblock %}

@@ -14,7 +14,7 @@ from models import *
 
 # @cache_page(600 * 15)
 def paginate(objects_list, request):
-    paginator = Paginator(objects_list, 5)  # Show 5 contacts per page
+    paginator = Paginator(objects_list, 5)
 
     page = request.GET.get('page')
     try:
@@ -44,7 +44,7 @@ def index(request):
     questions = Question.objects.top()
     objects_page, paginator = paginate(questions, request)
     return render(request, 'index.html', {
-        "questions": objects_page,
+        'questions': objects_page,
         'atags': Tag.objects.all()
     })
 
@@ -54,7 +54,7 @@ def bytag(request, tag):
     objects_page, paginator = paginate(questions, request)
     return render(request, 'bytag.html', {
         "questions": objects_page,
-        'tag' : tag,
+        'tag': tag,
         'atags': Tag.objects.all()
     })
 
@@ -71,56 +71,68 @@ def hot(request):
     })
 
 
+def makequestion(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    
+
+
 def login_to_system(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect( '/' )
+        return HttpResponseRedirect('/')
 
-    if(request.method == "POST"):
+    errors = False
+    if (request.method == "POST"):
         login_name = request.POST['login']
         password = request.POST['password']
-        user = authenticate(username = login_name, password = password)
-        if user:
-            login(request, user)
-            return HttpResponseRedirect('/')
-        else:
-            return HttpResponseRedirect('/login?error=1')
+        if not login_name or not password:
+            errors = True
+        if not errors:
+            user = authenticate(username=login_name, password=password)
+            if user:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                errors = True
     else:
         form = LoginForm()
-
     return render(request, 'login.html', {
-        'form': form
+        'form': form,
+        'errors': errors
     })
 
 
 def signup(request):
-    if(request.method == "POST"):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+
+    if request.POST:
         form = SignUpForm(request.POST, request.FILES)
-        if form.is_valid() and form.clean():
+        if form.is_valid():
             form.save()
-
-            return HttpResponseRedirect('/')
-
-        #print(form.cleaned_data)
+            return HttpResponseRedirect('/login')
     else:
         form = SignUpForm()
 
     return render(request, 'register.html', {
-        'form': form
+        'form': form,
     })
+
 
 def logout_user(request):
     if not request.user.is_authenticated:
-       return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
     logout(request)
     return HttpResponseRedirect('/')
+
 
 def question(request, question_id):
     q = get_object_or_404(Question, id=question_id)
     answers = Answer.objects.filter_question(q)
-    #form = AnswerForm(initial={'question': str(pk)})
+    # form = AnswerForm(initial={'question': str(pk)})
     return render(request, 'question.html', {
         'question': q,
         'answers': answers,
-        'atags' : Tag.objects.all()
-        #'form': form,
+        'atags': Tag.objects.all()
+        # 'form': form,
     })

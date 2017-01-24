@@ -12,23 +12,28 @@ server {
 	gzip on;
 	gzip_comp_level 3;
 	gzip_types text/plain application/xml application/x-javascript text/css;
-	
-	
-	location /uploads {
-		alias /home/serych/Technopark/Technopark_Web/Django/ask_govjazin/uploads;
-		expires 15d;
-	}
-	
-	location ~* ^.+\.(jpg|jpeg|css|js|png|swg|ico)$ {
-		root /home/serych/Technopark/Technopark_Web/Django/ask_govjazin/static;
-		access_log off;
-		expires 15d;
-	}
 
+	location ~ \.\w\w\w?\w?$ {
+		root /home/serych/Technopark/Technopark_Web/Static;
+	}
+	
 	location / {
 		proxy_cache_valid 200 1m;
 		proxy_pass http://askgov;
-	}	
+	}
+	
+	location ^~ /uploads {
+		alias /home/serych/Technopark/Technopark_Web/Django/ask_govjazin/uploads;
+		autoindex on;
+		expires 15d;
+	}
+	
+	location ~* \.(jpg|jpeg|css|js|png|swg|ico)$ {
+		alias /home/serych/Technopark/Technopark_Web/Django/ask_govjazin/static;
+		access_log off;
+		expires 15d;
+    }
 
+	
 	proxy_cache pagecache;
 }

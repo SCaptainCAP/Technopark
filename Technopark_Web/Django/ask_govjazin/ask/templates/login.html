@@ -3,13 +3,26 @@
 
 <h2> Авторизация </h2>
 
-<form method="POST" action="/login" enctype="multipart/form-data">
+<form method="POST" class="form-horizontal" action="/login" enctype="multipart/form-data">
     {% csrf_token %}
-    {% for field in form %}
-    <div class="form-group {% if field.errors %}has-error{% endif %}">
-        <div for="email">{{field.label}}</div>
-        {{field}}
+
+    {% if errors %}
+    <div class="form-group">
+        <div class="col-md-8">
+            <div class=" alert alert-danger" role="alert">Ошибка авторизации</div>
+        </div>
     </div>
+    {% endif %}
+
+    {% for field in form %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}" >
+        <label class="col-md-2 control-label" style="text-align:left;">{{field.label}}</label>
+        <div class="col-md-6">
+            {% if field.errors %}{field.errors}{% endif %}
+            {{field}}
+        </div>
+    </div>
+
     {% endfor %}
 
     <button type="submit" class="btn btn-default">Login</button>
