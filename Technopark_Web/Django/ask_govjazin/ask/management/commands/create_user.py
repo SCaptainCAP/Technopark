@@ -14,6 +14,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         u = User.objects.create_user(options['uname'], options['uemail'], options['upass'])
-        u.save()
+        u.update_account()
         p = Profile(user = u)
         p.save()

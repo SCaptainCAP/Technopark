@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = BASE_DIR
+HOST = u'askgovjazin.io'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -26,7 +27,7 @@ SECRET_KEY = 'h_l#n1vej27$r#$oi8nu-jyzaujrii%z1=76dp10fkm&1gsv*y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'askgovjazin.io',u'django']
+ALLOWED_HOSTS = [u'django', u'scaptaincap.asuscomm.com']
 
 
 # Application definition

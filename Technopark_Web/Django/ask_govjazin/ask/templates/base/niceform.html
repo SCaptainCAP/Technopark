@@ -1,0 +1,28 @@
+{% csrf_token %}
+{% if form.non_field_errors %}
+<div class="form-group">
+    <div class="col-md-8">
+        <div class=" alert alert-danger" role="alert">
+            {% for er in form.non_field_errors %}{{ er }}<br>{% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% for field in form %}
+<div class="form-group" >
+    <label class="col-md-2 control-label" style="text-align:left;">{{field.label}}</label>
+    <div class="col-md-6">
+        {{field}}
+    </div>
+</div>
+{% if field.errors %}
+    <div class="form-group">
+    <div class="col-md-8">
+        <div class=" alert alert-danger" role="alert">
+            {{ field.errors.as_text }}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}

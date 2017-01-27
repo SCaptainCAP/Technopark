@@ -7,7 +7,7 @@ from ask_govjazin.settings import BASE_DIR
 
 class ProfileManager(models.Manager):
     def by_user(self, u):
-        return self.all().filter(user=u)
+        return self.all().filter(user=u)[0]
 
 
 class Profile(models.Model):
@@ -30,10 +30,12 @@ class Profile(models.Model):
 class TagsManager(models.Manager):
     pass
 
+
 class Tag(models.Model):
-    data = models.CharField(max_length=42)
+    data = models.CharField(max_length=420)
 
     objects = TagsManager()
+
     def __unicode__(self):
         return self.data
 
@@ -60,8 +62,20 @@ class Question(models.Model):
         null=True,
     )
     creation_time = models.DateTimeField(default=timezone.now)
-
     objects = QuestionManager()
+
+    def getAnswerCount(self):
+        return Answer.objects.filter_question(self).count()
+
+    def getLikes(self):
+        return Like.objects.filter(question=self)
+
+    def getUserLike(self, user):
+        l = Like.objects.filter(question=self, profile=Profile.objects.by_user(user))
+        if l:
+            return l[0]
+        else:
+            return None
 
     def __unicode__(self):
         return self.title
@@ -69,7 +83,7 @@ class Question(models.Model):
 
 class AnswerManager(models.Manager):
     def filter_question(self, q):
-        return self.all().filter(question=q)
+        return self.all().filter(question=q).order_by('rating', 'creation_time')
 
 
 class Answer(models.Model):
@@ -92,8 +106,19 @@ class Answer(models.Model):
         return self.text
 
 
+class LikeManager(models.Manager):
+    def byQuestion(self, q):
+        self.all().filter(question=q)
+
+    def byProfile(self, p):
+        self.all().filter(profile=p)
+
+    def byProfileQuestion(self, p, q):
+        self.all().filter(profile=p, question=q)
+
+
 class Like(models.Model):
-    value = models.IntegerField()
+    value = models.IntegerField(default=0)
     profile = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
@@ -104,6 +129,7 @@ class Like(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+    objects = LikeManager()
 
     class Meta:
         unique_together = (("profile", "question"),)
@@ -112,8 +138,12 @@ class Like(models.Model):
         return unicode(self.value)
 
 
+class AnswerLikeManager(models.Manager):
+    pass
+
+
 class AnswerLike(models.Model):
-    value = models.IntegerField()
+    value = models.IntegerField(default=0)
     profile = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
@@ -124,6 +154,7 @@ class AnswerLike(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+    objects = AnswerLikeManager
 
     class Meta:
         unique_together = (("profile", "answer"),)

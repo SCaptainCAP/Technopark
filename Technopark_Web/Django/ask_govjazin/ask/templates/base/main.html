@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- <link rel="icon" href="../../favicon.ico">-->
 
-    <title>ASKME by Gobjazin</title>
+    <title>ASKME by Govjazin</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -22,24 +22,24 @@
 
 <body>
 
-    {% if user.is_authenticated  %}
-        {% include "base/bar_logged_in.html" %} 
-    {% else %} 
-        {% include "base/bar_not_logged_in.html" %} 
-    {% endif %} 
-    <div class="container">
-      <!--table-->
-      <div class="container-fluid row show-grid">
-        <!-- left column-->  
-        <div class="col-md-9 "> 
+{% if user.is_authenticated %}
+    {% include "base/bar_logged_in.html" %}
+{% else %}
+    {% include "base/bar_not_logged_in.html" %}
+{% endif %}
+<div class="container">
+    <!--table-->
+    <div class="container-fluid row show-grid">
+        <!-- left column-->
+        <div class="col-md-9 ">
             {% block content %} {% endblock %}
-          </div>
-          {% include "base/right_menu.html" %}
         </div>
+        {% include "base/right_menu.html" %}
     </div>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/js/likescript.js"></script>
 </body>
 
 </html>

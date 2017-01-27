@@ -1,102 +1,74 @@
 {% extends "base/main.html" %}
 {% block content %}
+{% load tt %}
+{% include "base/singlequestion.html" %}
+<hr class="style-one">
+{% for answer in answers %}
 <ul class="list-group" type="none">
-    <!-- Start Question-->
+    <!-- Start answer-->
     <div class="panel panel-default">
         <div class="panel-body">
-            <div class="col-md-2">
-                <img src="/static/img/1.jpg" class="img-rounded" style="width: 100px; height: 100px;">
-
-                <h2 class="question_rate">1
-                    <button class="btn btn-success rounded_btn question_rate_btn" type="submit">↑</button>
-                    <button class="btn btn-danger rounded_btn question_rate_btn" type="submit">↓</button>
-                </h2>
-
-            </div>
-            <div class="col-md-10">
-                <h4><a href="question.html"> It is very good question!!!! </a></h4>
-                <p>Why do we put a # in the href attribute of the link? Since we do not have any page to link it to, and
-                    we do not want to get a "404" message, we put # as the link. In real life it should of course been a
-                    real URL to the "Search" page.</p>
-                <div class="question_answers_and_tegs_block">
-                    <div class="col-md-6">
-                        <a href="question.html">Answers <span class="badge">10</span> </a>
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="/{{answer.author.avatar}}" class="img-rounded" style="width: 110px; height: 110px;">
+                    <div class="row">
+                        <h2 align="center" id="{{ answer.id }}ratinganswer">{{ answer.rating }}</h2>
                     </div>
-                    <div class="col-md-6 tags">
-                        Tags:
-                        <a href="bytag.html"> Tag</a>
-                        <a href="bytag.html"> Sample</a>
-                        <a href="bytag.html"> Nice</a>
-                        <a href="bytag.html"> Question</a>
-                        <a href="bytag.html"> C</a>
-                        <a href="bytag.html"> Progi</a>
+                    {% if user.is_authenticated %}
+                    {% getUserLikeAnswer answer user as userRate%}
+                    <div align="center">
+                        <img src="/static/img/Down-50.png"
+                             {% ifequal userRate -1 %}
+                             style="background-color:red;"
+                             {% endifequal %}
+                             class="img-rounded dislikeanswer"
+                             qid="{{ answer.id }}"
+                             id="{{ answer.id }}dislikeanswer">
+                        <img src="/static/img/Up-50.png"
+                             {% ifequal userRate 1 %}
+                             style="background-color:green;"
+                             {% endifequal %}
+                             class="img-rounded likeanswer"
+                             qid="{{ answer.id }}"
+                             id="{{ answer.id }}likeanswer">
                     </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-10">
+                    <p>{{answer.text}}</p>
                 </div>
             </div>
+
         </div>
     </div>
-    <!-- END Start Question-->
-    <hr class="style-one">
-    <!-- Start Question-->
-    <li>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="col-md-2">
-                    <img src="/static/img/2.jpg" class="img-rounded" style="width: 100px; height: 100px;">
-
-                    <h2 class="question_rate">-1001
-                        <button class="btn btn-success rounded_btn question_rate_btn" type="submit">↑</button>
-                        <button class="btn btn-danger rounded_btn question_rate_btn" type="submit">↓</button>
-                    </h2>
-
-                </div>
-                <div class="col-md-10">
-                    <h4><a href="question.html"> It is very BAD answer!!!! </a></h4>
-                    <p>Rounder corners can be created independently using the four individual border-*-radius properties
-                        (border-bottom-left-radius, border-top-left-radius, etc.) or for all four corners simultaneously
-                        using the border-radius shorthand property.
-                        We will firstly deal with the syntax for the individual border-*-radius properties before
-                        looking at how the border-radius shorthand property works.
-                        border-bottom-left-radius, border-bottom-right-radius, border-top-left-radius,
-                        border-top-right-radius
-                        The border-*-radius properties can each accept either one or two values, expressed as a length
-                        or a percentage (percentages refer to the corresponding dimensions of the border box).</p>
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="col-md-2">
-                    <img src="/static/img/2.jpg" class="img-rounded" style="width: 100px; height: 100px;">
-
-                    <h2 class="question_rate">-2001
-                        <button class="btn btn-success rounded_btn question_rate_btn" type="submit">↑</button>
-                        <button class="btn btn-danger rounded_btn question_rate_btn" type="submit">↓</button>
-                    </h2>
-
-                </div>
-                <div class="col-md-10">
-                    <h4><a href="question.html"> It is very VERY BAD answer!!!! </a></h4>
-                    <p>Rounder corners can be created independently using the four individual border-*-radius properties
-                        (border-bottom-left-radius, border-top-left-radius, etc.) or for all four corners simultaneously
-                        using the border-radius shorthand property.
-                        We will firstly deal with the syntax for the individual border-*-radius properties before
-                        looking at how the border-radius shorthand property works.
-                        border-bottom-left-radius, border-bottom-right-radius, border-top-left-radius,
-                        border-top-right-radius
-                        The border-*-radius properties can each accept either one or two values, expressed as a length
-                        or a percentage (percentages refer to the corresponding dimensions of the border box).</p>
-
-                    <h2 style="color:green;">Автор выбрал этот ответ
-                    </h2>
-                </div>
-            </div>
-        </div>
-    </li>
-    <!-- END Start Question-->
 </ul>
-
+{% endfor %}
+<hr class="style-one">
+{% if answers.has_other_pages %}
+<ul class="pagination">
+    {% if answers.has_previous %}
+    <li><a href="?page={{ answers.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in answers.paginator.page_range %}
+    {% if answers.number == i %}
+    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if answers.has_next %}
+    <li><a href="?page={{ answers.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+</ul>
+{% endif %}
+{% if form %}
+<form method="POST" class="form-horizontal" enctype="multipart/form-data">
+    {% include "base/niceform.html" %}
+    <button type="submit" class="btn btn-default">Answer</button>
+</form>
+{% endif %}
 {% endblock %}

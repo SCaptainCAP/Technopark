@@ -18,17 +18,18 @@
                <button type="submit" class="btn glyphicon glyphicon-search nav_search_button" aria-hidden="true" ></button>
               </div>
             </div>
-              <a type="button" class="btn btn-success c-btn-uppercase c-btn-bold" href="{% url 'makequestion'%}">Create question</a>
+              <a type="button" class="btn btn-success c-btn-uppercase c-btn-bold" href="{% url 'ask'%}">Create question</a>
           </form>
         </div>
       </div>
       <div class="navbar_right">
-       <img src="{{user.profile.avatar}}" class="navbar_right_name navbar_pic"/>
+       <img src="/{{user.profile.avatar}}" class="navbar_right_name navbar_pic"/>
         <div class="navbar_right_name">                              
           <ul type="none" class="navbar_list">
            <li id="navbar_user_name">{{user.username}}</li>
-           <!--<li> <a  href="settings.html" class="nav_account_buttons">Settings</a>-->
-                <a  href="{% url 'logout'%}" class="nav_account_buttons">Log out</a> </li>
+           <!-- <li> <a  href="settings.html" class="nav_account_buttons">Settings</a>-->
+                <a  href="{% url 'logout'%}" class="nav_account_buttons">Log out</a>
+                <a  href="{% url 'settings'%}" class="nav_account_buttons">Settings</a>
           </ul>
         </div>              
       </div>

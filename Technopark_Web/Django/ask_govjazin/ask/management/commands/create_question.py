@@ -21,7 +21,7 @@ class Command(BaseCommand):
             tags_objs = []
             for tag in tags:
                 tag_obj = Tag.objects.get_or_create(data=(tag + str(i)))[0]
-                tag_obj.save()
+                tag_obj.update_account()
                 tags_objs.append(tag_obj)
 
             q = Question(title = options['title'] + str(i),

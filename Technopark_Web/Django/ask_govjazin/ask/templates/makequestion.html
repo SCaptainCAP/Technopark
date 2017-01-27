@@ -1,0 +1,10 @@
+{% extends "base/main.html" %}
+{% block content %}
+<h2> Create new question </h2>
+
+<form method="POST" class="form-horizontal" enctype="multipart/form-data">
+    {% include "base/niceform.html" %}
+    <h4>Please input tags one to one, splitting by comma</h4>
+    <button type="submit" class="btn btn-default">Create question</button>
+</form>
+{% endblock %}

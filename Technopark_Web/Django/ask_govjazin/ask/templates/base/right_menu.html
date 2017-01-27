@@ -4,7 +4,7 @@
     <h2> Popular tags</h2>
     <div class="popular_tags">
         {% for j in atags %}
-        <a href="{% url 'tag' j.data %}" class="popular_tags_medium"> {{j.data}}</a>
+        <a href="/tag/{{j.data}}" class="popular_tags_medium"> {{j.data}}</a>
         {% endfor %}
     </div>
     <!--END right column Popular tags-->
