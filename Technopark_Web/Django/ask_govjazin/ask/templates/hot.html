@@ -1,77 +1,30 @@
 {% extends "base/main.html" %}
 {% block content %}
-<h2 class="">Hot questions!</h2>
+<h2 class="">HOT questions!</h2>
 <ul class="list-group" type="none">
-    <!-- Start Question-->
-    {% for i in questions %}
-    <li>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="col-md-2">
-                    <img src="{{i.author.avatar}}" class="img-rounded" style="width: 100px; height: 100px;">
-
-                    <h2 class="question_rate">
-                        <button class="btn btn-success rounded_btn question_rate_btn" type="submit">↑</button>
-                        <button class="btn btn-danger rounded_btn question_rate_btn" type="submit">↓</button>
-                    </h2>
-
-                </div>
-                <div class="col-md-10">
-                    <h4><a href="question.html">{{i.title}}</a></h4>
-                    <p>{{i.text}}</p>
-                    <div class="question_answers_and_tegs_block">
-                        <div class="col-md-6">
-                            <a href="question.html">Answers <span class="badge">10</span> </a>
-                        </div>
-                        <div class="col-md-6 tags">
-                            Tags:
-                            <a href="bytag.html"> Tag</a>
-                            <a href="bytag.html"> Sample</a>
-                            <a href="bytag.html"> Nice</a>
-                            <a href="bytag.html"> Question</a>
-                            <a href="bytag.html"> C</a>
-                            <a href="bytag.html"> Progi</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>
+    {% for question in questions %}
+    {% include "base/singlequestion.html" %}
 </ul>
 {% endfor %}
-<nav aria-label="question navigation">
-    <ul class="pagination am-pagination">
-        <li>
-            {% if question.number == 1 %}
-            <a href="{{ paginator.baseurl }}{{ question.number }}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
+{% if questions.has_other_pages %}
+    <ul class="pagination">
+        {% if questions.has_previous %}
+            <li><a href="?page={{ questions.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in questions.paginator.page_range %}
+            {% if questions.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
             {% else %}
-            <a href="{{ paginator.baseurl }}{{ question.previous_question_number }}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
             {% endif %}
-        </li>
-        {% for p in paginator.question_range %}
-        {% if p == question.number %}
-        <li class="active">
-            {% else %}
-        <li>
-            {% endif %}
-            < a href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a>
-        </li>
         {% endfor %}
-        <li>
-            {% if question.number == paginator.num_questions %}
-            <a href="{{ paginator.baseurl }}{{ paginator.num_questions }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% else %}
-            <a href="{{ paginator.baseurl }}{{ question.next_question_number }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% endif %}
-        </li>
+        {% if questions.has_next %}
+            <li><a href="?page={{ questions.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
     </ul>
-</nav>
+{% endif %}
 {% endblock %}

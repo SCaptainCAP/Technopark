@@ -6,14 +6,16 @@
 {% for answer in answers %}
 <ul class="list-group" type="none">
     <!-- Start answer-->
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="{{ answer.id }}anspanel"
+         {% if answer.is_correct %}
+         style="background-color:GreenYellow;"
+         {% endif %}>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-2">
                     <img src="/{{answer.author.avatar}}" class="img-rounded" style="width: 110px; height: 110px;">
-                    <div class="row">
-                        <h2 align="center" id="{{ answer.id }}ratinganswer">{{ answer.rating }}</h2>
-                    </div>
+                    <h4 align="center">{{ answer.author.user }}</h4>
+                    <h2 align="center" id="{{ answer.id }}ratinganswer">{{ answer.rating }}</h2>
                     {% if user.is_authenticated %}
                     {% getUserLikeAnswer answer user as userRate%}
                     <div align="center">
@@ -35,8 +37,16 @@
                     {% endif %}
                 </div>
                 <div class="col-md-10">
-                    <p>{{answer.text}}</p>
+                    <p style="word-wrap: break-word;">{{answer.text}}</p>
                 </div>
+                {% if user.is_authenticated %}
+                {% ifequal user question.getAuthorUser %}
+                <button type="button"
+                        class="btn btn-success rightbutton"
+                        id="{{ answer.id }}rightbutton"
+                        qid="{{ answer.id }}">It is right answer!</button>
+                {% endifequal %}
+                {% endif %}
             </div>
 
         </div>

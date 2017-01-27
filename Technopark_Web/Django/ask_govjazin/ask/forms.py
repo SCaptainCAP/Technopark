@@ -2,6 +2,7 @@ import os
 import re
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import password_validators_help_text_html
+from django.core.mail import send_mail
 
 from models import *
 
@@ -173,6 +174,13 @@ class CreateAnswerForm(forms.Form):
 
     def create_question(self):
         answer = Answer(text=self.cleaned_data.get('text', None), question=self.question, author=Profile.objects.by_user(self.user))
+        try:
+            send_mail('You have new answer!',
+                  self.cleaned_data.get('text', None)+'| checkout it here: http://scaptaincap.asuscomm.com/question/' + str(self.question.id),
+                  'mailer@scaptaincap.asuscomm.com',
+                  [self.question.author.user.email], fail_silently=False)
+        except:
+            pass
         answer.save()
 
 
@@ -200,16 +208,30 @@ class MakeQuestionForm(forms.Form):
             raise forms.ValidationError(u'Please fill all required fields')
         if tags:
             tags_text = tags.split(',')
-            for i in tags_text:
-                i.strip()
-                if len(i) > 20:
+            i = 0
+            while i < len(tags_text):
+                tags_text[i] = tags_text[i].strip()
+                if len(tags_text[i]) > 20:
                     raise forms.ValidationError(u'Tag cannot be bigger than 20 symbols')
+                if tags_text[i] == '':
+                    tags_text.pop(i)
+                    i -= 1
+                i += 1
+            if len(tags_text) > 3:
+                raise forms.ValidationError(u'There can be no more than 3 tags')
 
         return self.cleaned_data
 
     def save(self, request):
         data = self.data
         tags_text = data['tags'].split(',')
+        i = 0
+        while i < len(tags_text):
+            tags_text[i] = tags_text[i].strip()
+            if tags_text[i] == '':
+                tags_text.pop(i)
+                i -= 1
+            i += 1
         for i in tags_text:
             i.strip()
         tags_objs = []

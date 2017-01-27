@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^dislikeanswer/?', views.dislike_answer, name='dislikeanswer'),
     url(r'^like/?', views.like_question, name='like'),
     url(r'^dislike/?', views.dislike_question, name='dislike'),
+    url(r'^setanswercorrect/?', views.set_answer_correct, name='setanswercorrect'),
     url(r'^$', views.index, name='index'),
 ]

@@ -4,7 +4,7 @@
     <h2> Popular tags</h2>
     <div class="popular_tags">
         {% for j in atags %}
-        <a href="/tag/{{j.data}}" class="popular_tags_medium"> {{j.data}}</a>
+        <a href="/tag/{{j}}" class="popular_tags_medium"> {{j}}</a>
         {% endfor %}
     </div>
     <!--END right column Popular tags-->
@@ -12,10 +12,9 @@
     <!-- right column Best Members-->
     <h2> Top users</h2>
     <ul class="list-group best_members" type="none">
-        <li><a href="#"> First top paren</a></li>
-        <li><a href="#"> SECOND top paren</a></li>
-        <li><a href="#"> First top girl</a></li>
-        <li><a href="#"> Second top girl</a></li>
+        {% for user in ausers %}
+        <li>{{user}}</li>
+        {% endfor %}
     </ul>
     <!--END right column Best Members-->
 </div>

@@ -15,7 +15,7 @@ from models import *
 
 # @cache_page(600 * 15)
 def paginate(objects_list, request):
-    paginator = Paginator(objects_list, 5)
+    paginator = Paginator(objects_list, 20)
 
     page = request.GET.get('page')
     try:
@@ -44,19 +44,10 @@ def basewsgi(request):
 def index(request):
     questions = Question.objects.top()
     qs, paginator = paginate(questions, request)
-    likes = []
-    if request.user.is_authenticated:
-        p = Profile.objects.by_user(request.user)
-        for i in qs:
-            like = Like.objects.byProfileQuestion(p, i)
-            if like:
-                likes.append(like.value)
-            else:
-                likes.append(0)
     return render(request, 'index.html', {
         'questions': qs,
-        'atags': Tag.objects.all(),
-        'likes': likes
+        'atags': Tag.objects.getBestFromFile(),
+        'ausers': Profile.objects.getBestFromFile(),
     })
 
 
@@ -66,15 +57,18 @@ def bytag(request, tag):
     return render(request, 'bytag.html', {
         "questions": objects_page,
         'tag': tag,
-        'atags': Tag.objects.all()
+        'atags': Tag.objects.getBestFromFile(),
+        'ausers': Profile.objects.getBestFromFile(),
     })
 
 
 def hot(request):
     questions = Question.objects.top()
-    objects_page, paginator = paginate(questions, request)
+    qs, paginator = paginate(questions, request)
     return render(request, 'hot.html', {
-        "questions": objects_page,
+        'questions': qs,
+        'atags': Tag.objects.getBestFromFile(),
+        'ausers': Profile.objects.getBestFromFile(),
     })
 
 
@@ -252,6 +246,35 @@ def dislike_answer(request):
     return JsonResponse({'error': '0', 'rating': a.rating, 'myrate': like.value})
 
 
+def set_answer_correct(request):
+    if not request.method == 'GET':
+        return JsonResponse({'error': '6'})
+    try:
+        answer_id = request.GET['id']
+    except:
+        return JsonResponse({'error': '7'})
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': '1'})
+    if not answer_id:
+        return JsonResponse({'error': '5'})
+    try:
+        a = Answer.objects.get(id=answer_id)
+    except:
+        return JsonResponse({'error': '2'})
+    if not a.author.user == request.user:
+        return JsonResponse({'error': '8'})
+    answers = Answer.objects.filter_question(q=a.question)
+    lastid = -1
+    for answer in answers:
+        if answer.is_correct:
+            lastid = answer.id
+        answer.is_correct = False
+        answer.save()
+    a.is_correct = True
+    a.save()
+    return JsonResponse({'error': '0', 'newid' : a.id, 'lastid' : lastid})
+
+
 def like_answer(request):
     if not request.method == 'GET':
         return JsonResponse({'error': '6'})
@@ -296,5 +319,6 @@ def question(request, question_id):
         'question': q,
         'answers': answers,
         'form': form,
-        'atags': Tag.objects.all()
+        'atags': Tag.objects.getBestFromFile(),
+        'ausers': Profile.objects.getBestFromFile(),
     })

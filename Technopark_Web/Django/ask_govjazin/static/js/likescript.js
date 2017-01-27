@@ -30,6 +30,15 @@ $('.dislike').click(function(){
         }
     }, "json" );})
 
+$('.rightbutton').click(function(){
+    var qid;
+    qid = $(this).attr("qid");
+    $.get( "/setanswercorrect", {id: qid}, function( data ) {
+        if (data.error == 0) {
+           $('#' + data.lastid + 'anspanel').css('background-color', '');
+           $('#' + data.newid + 'anspanel').css('background-color', 'GreenYellow');
+        }
+    }, "json" );})
 
 $('.likeanswer').click(function(){
     var qid;

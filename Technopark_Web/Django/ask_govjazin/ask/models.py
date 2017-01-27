@@ -8,6 +8,13 @@ from ask_govjazin.settings import BASE_DIR
 class ProfileManager(models.Manager):
     def by_user(self, u):
         return self.all().filter(user=u)[0]
+    def getBestFromFile(self):
+        f = open(BASE_DIR + '/static/updatable_data/bestusers.txt', 'r')
+        try:
+            tags = f.read().splitlines()
+        finally:
+            f.close()
+        return tags
 
 
 class Profile(models.Model):
@@ -28,7 +35,13 @@ class Profile(models.Model):
 
 
 class TagsManager(models.Manager):
-    pass
+    def getBestFromFile(self):
+        f = open(BASE_DIR + '/static/updatable_data/besttags.txt', 'r')
+        try:
+            tags = f.read().splitlines()
+        finally:
+            f.close()
+        return tags
 
 
 class Tag(models.Model):
@@ -63,6 +76,9 @@ class Question(models.Model):
     )
     creation_time = models.DateTimeField(default=timezone.now)
     objects = QuestionManager()
+
+    def getAuthorUser(self):
+        return self.author.user
 
     def getAnswerCount(self):
         return Answer.objects.filter_question(self).count()
