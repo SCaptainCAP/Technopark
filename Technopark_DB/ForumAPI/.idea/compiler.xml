@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="tp-db-forum-api" />
+        <module name="ForumAPI" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="tp-db-forum-api" target="1.8" />
+      <module name="ForumAPI" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

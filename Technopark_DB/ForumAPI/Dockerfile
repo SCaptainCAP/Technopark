@@ -8,8 +8,8 @@ RUN apt-get -y update
 #
 # Установка postgresql
 #
-ENV PGVER 9.5
-RUN apt-get install -y postgresql-$PGVER
+ENV PGVER 9.4
+RUN apt-get install -y postgresql
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-$PGVER`` package when it was ``apt-get installed``
 USER postgres
@@ -60,4 +60,4 @@ EXPOSE 5000
 #
 # Запускаем PostgreSQL и сервер
 #
-CMD service postgresql start && java -Xmx300M -Xmx300M -jar $WORK/ForumAPI/target/forumapi-1.0-SNAPSHOT.jar
+CMD service postgresql start && java -Xmx300M -Xmx300M -jar $WORK/ForumAPI/target/ForumAPI-1.0-SNAPSHOT.jar
